@@ -1,42 +1,47 @@
 package ua.kvelinskyi.seawar;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class PlayerBot extends Player{
-    private Field field; 
-    private String x;
-    private int y; 
+       
+    private String coordinate;
+    private List<String> arrayCoordinatesShots = new ArrayList<String>();
     private Random random = new Random();
     private String [] abscissaX = {"A","B","C","D","E","F","G","H","I","J"};
 
-    public PlayerBot() {
-        field = new Field();
+    @Override
+    protected String shot() {
+       while (true) { 
+           coordinate = abscissaX[random.nextInt(9)]+(random.nextInt(9)+1);
+            if (isDifferent(coordinate)) {
+                arrayCoordinatesShots.add(coordinate);
+                field.printField();
+                return coordinate;
+            }
+        } 
     }
 
     @Override
-    void playerProgress() {
-        x = abscissaX[random.nextInt(9)];
-        y = (random.nextInt(9)+1);
+    protected int generateNewShipCoordinates() {        
+        return field.locateShip(abscissaX[random.nextInt(9)], (random.nextInt(9)+1), 1);
     }
-
+    
     @Override
-    String getX() {
-        return x;
-    }
-
-    @Override
-    int getY() {
-        return y;
-    }
-
-    @Override
-    String getName() {
+    public String getName() {
         return "Bot";
     }
 
-    @Override
-    Field getField() {
-        return field;
-    }   
-    
+   private boolean isDifferent(String coordinate) {
+       if (arrayCoordinatesShots.isEmpty()) {
+           return true;
+       }
+       for (String arrayCoordinatesShot : arrayCoordinatesShots) {
+            if (!arrayCoordinatesShot.equals(coordinate)) {
+                return true;
+            }
+        }
+        return false;
+   }
 }

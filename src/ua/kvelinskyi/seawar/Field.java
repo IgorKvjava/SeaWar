@@ -70,24 +70,22 @@ public class Field {
 
     public int shotPlayer(String abscissaX, int ordinateY, int stateCell) {
         Cell cell = searchCell(abscissaX, ordinateY);        
-        int resultShot = 1;
+        int resultShot = 2;
         if (cell != null) {             
             switch (cell.getStateCell()) {
                 case 1:                    
                     --countShip;
-                    resultShot = locateShip(abscissaX, ordinateY, stateCell);
-                    printField();
+                    resultShot = locateShip(abscissaX, ordinateY, stateCell);                    
                     break;
                 case -1:
-                    resultShot = 1;
+                    resultShot = 2;
                     break;
                 case -2:
-                    resultShot = 1;
+                    resultShot = 2;
                     break;
                 default:
                     cell.setStateCell(-2);
-                    resultShot = 0;
-                    printField();
+                    resultShot = 0;                    
                     break;
             }
         }        
@@ -131,7 +129,7 @@ public class Field {
             System.out.print(result + " ");
             index++;
             if (index == 10) {
-                System.out.print(" |\n");
+                System.out.print("|\n");
                 if (++i < 10) {
                     System.out.print(abscissaX[i] + " | ");
                 }
@@ -140,5 +138,40 @@ public class Field {
         }
         System.out.println("--------------------------------------------");
     }
+    public void printFieldHumen() {
+        int index = 0;
+        int i = 0;
+        String result;
+        System.out.println("    1 2 3 4 5 6 7 8 9 10");
+        System.out.println("    ____________________");
+        System.out.print(abscissaX[i] + " | ");
+        for (Cell cell : cells) {
+            switch(cell.getStateCell()) {
+                case 1:
+                    result = "0";
+                    break;
+                case -2:                    
+                    result = "-";
+                    break;
+                case -1:                    
+                    result = "X";
+                    break;    
+                default:                    
+                    result = " ";
+                    break;
+            }
+            System.out.print(result + " ");
+            index++;
+            if (index == 10) {
+                System.out.print("|\n");
+                if (++i < 10) {
+                    System.out.print(abscissaX[i] + " | ");
+                }
+                index = 0;
+            }
+        }
+        System.out.println("--------------------------------------------");
+    }
+
 
 }

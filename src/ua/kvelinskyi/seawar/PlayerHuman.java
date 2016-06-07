@@ -7,21 +7,15 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class PlayerHuman extends Player {
-
-    private Field field;
+   
     private Scanner sc = new Scanner(System.in);
     private String coordinate;
     private String x;
     private int y;
-    private List arrayCoordinatesShots = new ArrayList();
+    private List<String> arrayCoordinatesShots = new ArrayList<String>();
 
     @Override
-    public void acceptShot(String coordinate) {
-        
-    }
-
-    @Override
-    protected int generateNewShipCordinates() {
+    protected int generateNewShipCoordinates() {
         coordinate = sc.nextLine();
         if (isValid(coordinate)) {            
             x = coordinate.substring(0, 1);
@@ -32,7 +26,10 @@ public class PlayerHuman extends Player {
     }
 
     private boolean isDifferent(String coordinate) {
-        for (Object arrayCoordinatesShot : arrayCoordinatesShots) {
+        if (arrayCoordinatesShots.isEmpty()) {
+           return true;
+       }
+        for (String arrayCoordinatesShot : arrayCoordinatesShots) {
             if (!arrayCoordinatesShot.equals(coordinate)) {
                 return true;
             }
@@ -51,9 +48,15 @@ public class PlayerHuman extends Player {
         while (true) {
             coordinate = sc.nextLine();
             if (isValid(coordinate) && isDifferent(coordinate)) {
+                arrayCoordinatesShots.add(coordinate);                
                 return coordinate;
             }
         }
+    }
+
+    @Override
+    public String getName() {
+        return "Human";
     }
     
 }
