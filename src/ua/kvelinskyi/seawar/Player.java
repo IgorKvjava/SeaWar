@@ -2,27 +2,19 @@ package ua.kvelinskyi.seawar;
 
 abstract class  Player {    
     private int numberShips = 4;
+    protected Field field;
       
-    public void locateShip(){
-        for (int i = 0; i < numberShips;) {
-            playerProgress();
-            i += getField().locateShip(getX(), getY(), 1);
-        }        
+    public void createFild(){
+        field = new Field();
+        generateNewShipCordinates();               
     }
     
-    public int shot() {
-        playerProgress();
+    public int shot() {        
         return getField().shotPlayer(getX(), getY(), -1);
     }
+    protected abstract void acceptShot();
     
-    abstract Field getField();
+    protected abstract void generateNewShipCordinates();  
     
-    abstract void playerProgress();
-    
-    abstract String getX(); 
-    
-    abstract int getY();
-    
-    abstract String getName();          
     
 }
