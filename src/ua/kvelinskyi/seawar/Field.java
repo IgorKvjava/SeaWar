@@ -2,16 +2,11 @@ package ua.kvelinskyi.seawar;
 
 public class Field {
 
-    private Cell[] cells;
+    private Cell[] cells = new Cell[100];
     private String[] abscissaX = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J"};
     private int countShip = 0;
 
-    public Field() {
-        cells = new Cell[100];
-        createField();
-    }
-
-    private void createField() {
+    public void createField() {
         int indexAbscissaX = 0;
         for (int i = 0; i < cells.length;) {
             for (int j = 1; j < 11; j++) {
@@ -24,8 +19,8 @@ public class Field {
 
     public int locateShip(String abscissaX, int ordinateY, int stateCell) {
         for (Cell cell : cells) {            
-            if (cell.getAbscissaX().equals(abscissaX)
-                    && cell.getOrdinateY() == ordinateY && cell.getStateCell() == 0 && stateCell == 1) {
+            if (stateCell == 1 && cell.getAbscissaX().equals(abscissaX)
+                    && cell.getOrdinateY() == ordinateY && cell.getStateCell() == 0) {
                 cell.createShip(abscissaX, ordinateY);
                 shipCells(cell, stateCell * 2);
                 countShip++;
@@ -111,14 +106,6 @@ public class Field {
         return null;
     }
 
-    public int getCountShip() {
-        return countShip;
-    }
-
-    public void setCountShip(int countShip) {
-        this.countShip = countShip;
-    }
-   
     public void printField() {
         int index = 0;
         int i = 0;

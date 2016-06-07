@@ -16,19 +16,19 @@ public class PlayerHuman extends Player {
     private List arrayCoordinatesShots = new ArrayList();
 
     @Override
-    protected void acceptShot() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void acceptShot(String coordinate) {
+        
     }
 
     @Override
-    protected void generateNewShipCordinates() {
+    protected int generateNewShipCordinates() {
         coordinate = sc.nextLine();
-        if (isDifferent(coordinate) && isValid(coordinate)) {
-            arrayCoordinatesShots.add(coordinate);
+        if (isValid(coordinate)) {            
             x = coordinate.substring(0, 1);
             y = Integer.parseInt(coordinate.substring(1));
-            field.locateShip(x, y, 1);
+            return field.locateShip(x, y, 1);
         }
+        return 0;
     }
 
     private boolean isDifferent(String coordinate) {
@@ -46,4 +46,14 @@ public class PlayerHuman extends Player {
         return m.matches();
     }
 
+    @Override
+    protected String shot() {
+        while (true) {
+            coordinate = sc.nextLine();
+            if (isValid(coordinate) && isDifferent(coordinate)) {
+                return coordinate;
+            }
+        }
+    }
+    
 }

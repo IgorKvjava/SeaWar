@@ -6,15 +6,17 @@ abstract class  Player {
       
     public void createFild(){
         field = new Field();
-        generateNewShipCordinates();               
-    }
+        field.createField();
+        for (int i = 0; i < numberShips; i++) {
+            i +=generateNewShipCordinates();
+        }                       
+    } 
     
-    public int shot() {        
-        return getField().shotPlayer(getX(), getY(), -1);
-    }
-    protected abstract void acceptShot();
+    protected abstract String shot();
     
-    protected abstract void generateNewShipCordinates();  
+    public abstract void acceptShot(String coordinate);
+    
+    protected abstract int generateNewShipCordinates();  
     
     
 }
