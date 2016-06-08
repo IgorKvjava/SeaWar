@@ -14,7 +14,7 @@ public class PlayerBot extends Player{
     @Override
     protected String shot() {
        while (true) { 
-           coordinate = abscissaX[random.nextInt(9)]+(random.nextInt(9)+1);
+           coordinate = abscissaX[random.nextInt(9)]+(random.nextInt(10)+1);
             if (isDifferent(coordinate)) {
                 arrayCoordinatesShots.add(coordinate);
                 field.printField();
@@ -25,7 +25,7 @@ public class PlayerBot extends Player{
 
     @Override
     protected int generateNewShipCoordinates() {        
-        return field.locateShip(abscissaX[random.nextInt(9)], (random.nextInt(9)+1), 1);
+        return field.locateShip(abscissaX[random.nextInt(9)], (random.nextInt(10)+1), 1);
     }
     
     @Override
@@ -39,6 +39,7 @@ public class PlayerBot extends Player{
        }
        for (String arrayCoordinatesShot : arrayCoordinatesShots) {
             if (!arrayCoordinatesShot.equals(coordinate)) {
+                arrayCoordinatesShots.add(coordinate);
                 return true;
             }
         }

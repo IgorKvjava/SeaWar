@@ -1,5 +1,7 @@
 package ua.kvelinskyi.seawar;
 
+import java.util.Scanner;
+
 class Game {
 
     private Player playerShot;
@@ -10,6 +12,8 @@ class Game {
     private int resultShot;
     private static final int NEXT_PLAYER = 0;
     private static final int WINNER = -1;
+    private Scanner sc = new Scanner(System.in);
+    private int continueGame;
 
     public void startGame() {
         playerBot = new PlayerBot();
@@ -32,10 +36,16 @@ class Game {
                 playerAccept = playerTime;
             } else if (resultShot == WINNER) {
                 if (playerShot.equals(playerHuman)) {
-                    System.out.println("Human Win");
+                    System.out.println("Human Win \n1 - Continue game");
+                    continueGame = sc.nextInt();
+                    if(continueGame == 1)
+                        startGame();
                     return;
                 } else {
-                    System.out.println("Bot Win");
+                    System.out.println("Bot Win\n1 - Continue game");
+                    continueGame = sc.nextInt();
+                    if(continueGame == 1)
+                        startGame();
                     return;
                 }
             }           
